@@ -1,0 +1,372 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #0d1117;
+  --surface: #151b28;
+  --surface-raised: #1a2030;
+  --border: #1e2736;
+  --text: #e4e7ec;
+  --text-muted: #7a8599;
+  --teal: #2dd4a8;
+  --blue: #3b82f6;
+  --gold: #facc15;
+  --coral: #f97066;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ─── Header ─────────────────────────────────────────── */
+
+.app-header {
+  text-align: center;
+  padding: 3rem 2rem 1.5rem;
+  background: linear-gradient(180deg, #111827 0%, var(--bg) 100%);
+}
+
+.app-header h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #f0f2f5;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.app-header h1 em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.app-header .subtitle {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+/* ─── Controls bar ───────────────────────────────────── */
+
+.controls-bar {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.5rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.control-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.region-selector {
+  appearance: none;
+  background: var(--surface-raised) url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%237a8599' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 12px center;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.5rem 2.25rem 0.5rem 0.875rem;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  min-width: 180px;
+}
+
+.region-selector:focus {
+  outline: none;
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(45, 212, 168, 0.12);
+}
+
+/* ─── Buttons ────────────────────────────────────────── */
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1.125rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: background 0.15s, border-color 0.15s, opacity 0.15s;
+  letter-spacing: 0.01em;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-export {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.btn-export:hover:not(:disabled) {
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+.btn-export .arrow {
+  display: inline-block;
+  margin-left: 0.25rem;
+  transition: transform 0.15s;
+}
+
+.btn-export:hover:not(:disabled) .arrow {
+  transform: translateY(1px);
+}
+
+.btn-refresh {
+  background: rgba(45, 212, 168, 0.08);
+  color: var(--teal);
+  border-color: rgba(45, 212, 168, 0.2);
+}
+
+.btn-refresh:hover:not(:disabled) {
+  background: rgba(45, 212, 168, 0.14);
+}
+
+/* ─── Dashboard grid ─────────────────────────────────── */
+
+.dashboard {
+  max-width: 1400px;
+  margin: 0 auto 3rem;
+  padding: 0 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #d0d5dd;
+  letter-spacing: -0.01em;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.625rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  background: var(--teal);
+  color: #0d1117;
+  white-space: nowrap;
+}
+
+.card--wide {
+  grid-column: 1 / -1;
+}
+
+.card--wide canvas {
+  max-height: 340px;
+}
+
+/* ─── Loading / Error ────────────────────────────────── */
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 1rem;
+  grid-column: 1 / -1;
+  gap: 1rem;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--border);
+  border-top-color: var(--teal);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.error {
+  grid-column: 1 / -1;
+  background: rgba(249, 112, 102, 0.08);
+  border: 1px solid rgba(249, 112, 102, 0.2);
+  color: var(--coral);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.error::before {
+  content: '\26A0';
+  font-size: 1.1rem;
+}
+
+/* ─── Heatmap table ──────────────────────────────────── */
+
+.heatmap-wrap {
+  overflow-x: auto;
+}
+
+.heatmap-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 3px;
+  font-size: 0.78rem;
+}
+
+.heatmap-table th {
+  padding: 0.5rem 0.625rem;
+  text-align: center;
+  font-weight: 600;
+  color: var(--text-muted);
+  white-space: nowrap;
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+}
+
+.heatmap-table th:first-child {
+  text-align: left;
+}
+
+.heatmap-table td {
+  padding: 0.4rem 0.625rem;
+  text-align: center;
+  border-radius: 4px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  min-width: 56px;
+  transition: transform 0.1s;
+}
+
+.heatmap-table td:first-child {
+  text-align: left;
+  background: transparent !important;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.heatmap-table tbody tr:hover td:not(:first-child) {
+  transform: scale(1.04);
+}
+
+.empty-message {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 2rem;
+  font-size: 0.875rem;
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .app-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .card--wide {
+    grid-column: auto;
+  }
+
+  .controls-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .region-selector {
+    min-width: 100%;
+  }
+}
+
+/* ─── Scrollbar ──────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2a3344;
+}
