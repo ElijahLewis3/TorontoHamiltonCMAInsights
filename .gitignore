@@ -30,7 +30,7 @@ yarn-error.log*
 .DS_Store
 Thumbs.db
 
-# Editor / AI
+# Agent
 .cursor/
 
 # Environment
