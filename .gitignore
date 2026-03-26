@@ -7,7 +7,7 @@ target/
 hs_err_pid*
 
 # Maven
-.mvn/wrapper/maven-wrapper.jar
+!.mvn/wrapper/maven-wrapper.jar
 
 # Node
 node_modules/
