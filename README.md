@@ -18,7 +18,7 @@ By connecting employment growth to housing construction in the same dashboard, M
 | Layer | Tech |
 |-------|------|
 | Frontend | React 18, TypeScript, Vite |
-| Backend | Java 17+, Spring Boot 3.2, OpenCSV |
+| Backend | Java 17+, Spring Boot 3.4, OpenCSV |
 | Database | MySQL |
 | Operations | Docker Compose |
 
@@ -31,15 +31,25 @@ By connecting employment growth to housing construction in the same dashboard, M
 
 ## Starting the Application
 
-### 1. Start MySQL
+### 1. Create your environment file
+
+Copy the example and fill in your own values:
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` and replace the `change_me_*` placeholders with secure passwords. This file is **gitignored** and must be created on every machine that runs the project.
+
+### 2. Start MySQL
 
 ```bash
 docker compose up -d
 ```
 
-MySQL is exposed on **localhost:3307**. To use a different host port, edit `docker-compose.yml` and `application.yml` to match.
+MySQL is exposed on **localhost:3307** by default. Adjust `MYSQL_HOST_PORT` in `.env` to change the port.
 
-### 2. Start the Spring Boot API
+### 3. Start the Spring Boot API
 
 ```bash
 cd backend
@@ -50,7 +60,7 @@ The API starts on **http://localhost:8080**.
 
 On first launch, the application attempts to **pull live data from Statistics Canada**. If the download fails (e.g. no internet), it falls back to bundled CSV files so the app still works offline.
 
-### 3. Start the React dev server
+### 4. Start the React dev server
 
 ```bash
 cd frontend
@@ -59,6 +69,24 @@ npm run dev
 ```
 
 Open **http://localhost:5173**
+
+## Environment Variables
+
+All configuration is managed through environment variables. See `.env.example` for the full list.
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `MYSQL_ROOT_PASSWORD` | MySQL root password (required) | — |
+| `MYSQL_USER` | MySQL application user (required) | — |
+| `MYSQL_PASSWORD` | MySQL application password (required) | — |
+| `MYSQL_DATABASE` | Database name | `mfhe_db` |
+| `MYSQL_HOST_PORT` | Host port for MySQL | `3307` |
+| `DB_URL` | JDBC connection string | `jdbc:mysql://localhost:3307/mfhe_db` |
+| `DB_USER` | Spring Boot DB user | `mfhe_user` |
+| `DB_PASSWORD` | Spring Boot DB password | `mfhe_pass` |
+| `CORS_ORIGIN` | Allowed frontend origin | `http://localhost:5173` |
+| `ADMIN_API_KEY` | API key for `/api/admin/*` endpoints (empty = no protection) | — |
+| `JPA_DDL_AUTO` | Hibernate DDL mode (`update`, `validate`, `none`) | `update` |
 
 ## Data Pipeline
 
@@ -81,7 +109,7 @@ The application pulls data directly from **Statistics Canada's open-data service
 | GET | `/api/insights/housing/heatmap/{code}` | Heat-map data (starts by period × category) |
 | GET | `/api/export/employment/{code}` | Download employment CSV |
 | GET | `/api/export/housing/{code}` | Download housing CSV |
-| POST | `/api/admin/refresh` | Re-fetch latest data from Statistics Canada |
+| POST | `/api/admin/refresh` | Re-fetch latest data from Statistics Canada (requires `X-API-Key` header if `ADMIN_API_KEY` is set) |
 
 
 ## Data Sources
