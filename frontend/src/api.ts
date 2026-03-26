@@ -26,8 +26,10 @@ export const fetchHousingCategories = (code: string) =>
 export const fetchHeatmap = (code: string) =>
   get<HeatmapCell[]>(`/api/insights/housing/heatmap/${code}`);
 
-export async function refreshData(): Promise<void> {
-  const res = await fetch('/api/admin/refresh', { method: 'POST' });
+export async function refreshData(apiKey?: string): Promise<void> {
+  const headers: Record<string, string> = {};
+  if (apiKey) headers['X-API-Key'] = apiKey;
+  const res = await fetch('/api/admin/refresh', { method: 'POST', headers });
   if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
 }
 

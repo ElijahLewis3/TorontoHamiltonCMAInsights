@@ -100,7 +100,7 @@ public class StatCanFetcherService {
             return "Data refreshed successfully.";
         } catch (Exception e) {
             log.error("Data refresh failed", e);
-            return "Data refresh failed: " + e.getMessage();
+            return "Data refresh failed. Check server logs for details.";
         }
     }
 

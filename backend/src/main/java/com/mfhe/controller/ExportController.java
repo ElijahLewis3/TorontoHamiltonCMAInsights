@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/api/export")
 public class ExportController {
+
+    private static final Pattern REGION_CODE_PATTERN = Pattern.compile("^[0-9]{1,5}$");
 
     private final RegionRepository regionRepo;
     private final EmploymentObservationRepository employmentRepo;
@@ -35,6 +38,7 @@ public class ExportController {
 
     @GetMapping("/employment/{code}")
     public ResponseEntity<byte[]> exportEmployment(@PathVariable String code) {
+        if (!isValidCode(code)) return ResponseEntity.badRequest().build();
         Optional<Region> regionOpt = regionRepo.findByCode(code);
         if (regionOpt.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -62,6 +66,7 @@ public class ExportController {
 
     @GetMapping("/housing/{code}")
     public ResponseEntity<byte[]> exportHousing(@PathVariable String code) {
+        if (!isValidCode(code)) return ResponseEntity.badRequest().build();
         Optional<Region> regionOpt = regionRepo.findByCode(code);
         if (regionOpt.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -86,6 +91,10 @@ public class ExportController {
                 .header(HttpHeaders.CONTENT_DISPOSITION,
                         "attachment; filename=\"housing_" + code + ".csv\"")
                 .body(sb.toString().getBytes());
+    }
+
+    private static boolean isValidCode(String code) {
+        return code != null && REGION_CODE_PATTERN.matcher(code).matches();
     }
 
     private String escapeCsv(String value) {
