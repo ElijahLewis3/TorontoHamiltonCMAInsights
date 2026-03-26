@@ -186,6 +186,8 @@ button {
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
 }
 
 .card-header {
